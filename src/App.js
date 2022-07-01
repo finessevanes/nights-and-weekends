@@ -1,10 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
+import BuyTicket from './components/BuyTicket';
 
 const ButtonStyle = `
-bg-gradient_medium hover:bg-gradient_light text-white py-2 px-4 rounded shadow
+bg-gradient-200 hover:bg-gradient-100 text-white py-2 px-4 rounded shadow
 `
 function App() {
   const [currentAccount, setCurrentAccount] = useState()
@@ -58,7 +58,9 @@ function App() {
       <Navbar currentAccount={currentAccount} />
       <div className='flex justify-center items-center h-screen'>
         {
-          !currentAccount && (
+          currentAccount ? (
+            <BuyTicket />
+          ) : (
             <button class={ButtonStyle} onClick={connectWallet}>
               Connect Wallet
             </button>
@@ -66,8 +68,11 @@ function App() {
         }
       </div>
     </div>
-
   );
 }
 
 export default App;
+
+
+// in this new compoenet, we wil be ablke to see the ticket, and mint the ticket 
+// BuyTicket
