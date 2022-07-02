@@ -6,6 +6,7 @@ import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "hardhat/console.sol";
+import {Base64} from "./libraries/Base64.sol";
 
 contract NWS01NFT is ERC721URIStorage {
     using Counters for Counters.Counter;
@@ -39,19 +40,24 @@ contract NWS01NFT is ERC721URIStorage {
             abi.encodePacked(firstSvg, zeros, stringItemId, lastSvg)
         );
 
-        console.log("\n--------------------");
-        console.log("MINT ####: ", stringItemId);
-        console.log(finalSvg);
-        console.log("--------------------\n");
+        string memory metaData = Base64.encode(
+            bytes(
+                string(
+                    abi.encodePacked(
+                        '{"name": "Nights & Weekends Season 1", "description": "500 builders shipping for 6 weeks. GTFOL or GTFO", "image": "data:image/svg+xml;base64,',
+                        Base64.encode(bytes(finalSvg)),
+                        '"}'
+                    )
+                )
+            )
+        );
+
+        string memory finalTokenUri = string(
+            abi.encodePacked("data:application/json;base64,", metaData)
+        );
 
         _safeMint(msg.sender, newItemId);
-        _setTokenURI(newItemId, "blah");
-
-        console.log(
-            "An NFT w/ #ID: %s has been minted to: %s",
-            newItemId,
-            msg.sender
-        );
+        _setTokenURI(newItemId, finalTokenUri);
 
         _tokenIds.increment();
     }
