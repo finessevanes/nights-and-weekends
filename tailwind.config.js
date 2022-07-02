@@ -15,15 +15,12 @@ module.exports = {
         '10': '40rem',
       },
       fontSize: {
-        x69: ['7rem', {
-          lineHeight: '7rem',
+        x69: ['9rem', {
+          lineHeight: '9rem',
         }],
-        xTitle: ['3.125rem', {
-          lineHeight: '2.3rem',
-        }],
-        xTitle: ['3.125rem', {
-          lineHeight: '2.3rem',
-        }],
+        xTitle: ['3.5rem', {
+          lineHeight: '2.8rem',
+        }]
       }
     },
   },
