@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import BuyTicket from './components/BuyTicket';
 
 const ButtonStyle = `
-bg-gradient-200 hover:bg-gradient-100 text-white py-2 px-4 rounded shadow
+bg-gradient-200 hover:bg-gradient-250 text-white py-2 px-4 rounded shadow
 `
 function App() {
   const [currentAccount, setCurrentAccount] = useState()
@@ -34,7 +34,6 @@ function App() {
 
       if (accounts.length !== 0) {
         const account = accounts[0];
-        console.log("Found an authorized account:", account);
         setCurrentAccount(account);
 
       } else {

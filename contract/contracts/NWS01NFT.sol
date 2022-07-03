@@ -5,10 +5,11 @@ pragma solidity ^0.8.1;
 import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "hardhat/console.sol";
 import {Base64} from "./libraries/Base64.sol";
 
-contract NWS01NFT is ERC721URIStorage {
+contract NWS01NFT is ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
@@ -20,11 +21,17 @@ contract NWS01NFT is ERC721URIStorage {
 
     string zeros = "";
 
+    uint256 public totalTickets = 500;
+    uint256 public availableTickets = 500;
+
+    mapping(address => uint256[]) public holderTokenIds;
+
     constructor() ERC721("Nights and Weekends S01", "NWS01") {
         _tokenIds.increment();
     }
 
     function mint() public {
+        require(availableTickets > 0, "Sold out");
         uint256 newItemId = _tokenIds.current();
         string memory stringItemId = Strings.toString(newItemId);
 
@@ -58,7 +65,19 @@ contract NWS01NFT is ERC721URIStorage {
 
         _safeMint(msg.sender, newItemId);
         _setTokenURI(newItemId, finalTokenUri);
-
         _tokenIds.increment();
+        availableTickets = availableTickets - 1;
+    }
+
+    function availableTicketCount() public view returns (uint256) {
+        return availableTickets;
+    }
+
+    function totalTicketCount() public view returns (uint256) {
+        return totalTickets;
+    }
+
+    function getCurrentId() public view returns (uint256) {
+        return _tokenIds.current();
     }
 }

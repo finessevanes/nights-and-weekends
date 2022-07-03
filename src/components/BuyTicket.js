@@ -1,42 +1,66 @@
-import React from 'react'
-import { QRCodeSVG } from 'qrcode.react'
-import ticket from './Ticket.svg'
+import React, { useEffect, useState } from 'react'
+import { TicketSVG } from './Ticket'
 import { ethers } from "ethers"
 import nws01 from '../utilities/nws01.json'
 
-
-// button to mint
-
-// ** nice to haves **
-// time left for sale
-// place to see balance in 
-// link that takes them to faucet
-
-
 const ButtonStyle = `
-bg-gradient-200 hover:bg-gradient-100 text-white py-2 px-4 rounded shadow mt-9 w-1/3 self-center
+bg-gradient-200 hover:bg-gradient-250 text-white py-2 px-4 rounded shadow mt-9 w-1/3 self-center
 `
 
-
 const BuyTicket = ({ isChainIdMumbai }) => {
+  const [stringToDisplay, setStringToDisplay] = useState('')
 
-  const mintTicket = async () => {
-    const CONTRACT_ADDRESS = "0x395758a3447e1ce3CA24b2c5497a0257FEc30f9f";
+  const CONTRACT_ADDRESS = "0xA7Af4a31DF9ED4Be02ad2856F21CE5134bC4D7CD"
+  useEffect(() => {
+    getCurrentId()
+  }, [])
 
+
+  const getCurrentId = async () => {
     try {
-      const { ethereum } = window;
+      const { ethereum } = window
 
       if (ethereum) {
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
-        const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, nws01.abi, signer);
+        const provider = new ethers.providers.Web3Provider(ethereum)
+        const signer = provider.getSigner()
+        const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, nws01.abi, signer)
+        let currentId = await connectedContract.getCurrentId()
+        let num = currentId.toNumber()
+        let zeros
 
-        let nftTxn = await connectedContract.mint();
+        if (num < 10) {
+          zeros = "00"
+        }
+
+        if (num > 9 && num < 100) {
+          zeros = "0"
+        }
+
+        setStringToDisplay(zeros + num)
+      }
+
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const mintTicket = async () => {
+    try {
+      const { ethereum } = window
+
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum)
+        const signer = provider.getSigner()
+        const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, nws01.abi, signer)
+
+
+        let nftTxn = await connectedContract.mint()
 
         console.log("Minting.....")
-        await nftTxn.wait();
+        await nftTxn.wait()
 
-        console.log(`TRANSACTION: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
+        console.log(`TRANSACTION: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`)
+        window.location.reload()
 
       } else {
         return
@@ -49,7 +73,7 @@ const BuyTicket = ({ isChainIdMumbai }) => {
   return (
     <>
       <div className='flex self-start flex-col'>
-        <img src={ticket} alt="nft ticket" />
+        <TicketSVG stringToDisplay={stringToDisplay}/>
         <button className={ButtonStyle} onClick={mintTicket}>Mint Ticket</button>
       </div>
     </>
