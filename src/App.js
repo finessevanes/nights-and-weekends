@@ -68,7 +68,7 @@ function App() {
           currentAccount ? (
             <BuyTicket isChainIdMumbai={isChainIdMumbai} />
           ) : (
-            <button class={ButtonStyle} onClick={connectWallet}>
+            <button className={ButtonStyle} onClick={connectWallet}>
               Connect Wallet
             </button>
           )
