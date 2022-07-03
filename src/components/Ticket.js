@@ -1,13 +1,15 @@
-export const TicketSVG = ({ stringToDisplay}) => {
+export const TicketSVG = ({ stringToDisplay }) => {
   return (
     <svg xmlns='http://www.w3.org/2000/svg' width='400' height='600'>
-      <rect width='400' height='600' style={{ fill:'#060A1F', strokeWidth: 4}} />
+      <rect width='400' height='600' style={{ fill: '#060A1F', strokeWidth: 4 }} />
       <text x='25' y='75' fontFamily='Verdana' fontSize='60'>🌙</text>
       <text x='90' y='165' fontFamily='Verdana' fontSize='45' fill='rgb(250, 204, 21)'>NIGHTS &amp;</text>
       <text x='80' y='200' fontFamily='Verdana' fontSize='45' fill='rgb(250, 204, 21)'>WEEKENDS</text>
       <text x='120' y='390' fontFamily='Verdana' fontSize='140'>🦄</text>
       <text x='120' y='455' fontFamily='Verdana' fontSize='30' fill='rgb(250, 204, 21)'>SEASON 01</text>
-      <line x1='0' y1='475' x2='400' y2='475' style={{ fill:'white', strokeWidth: 4}} />
+      <line x1='0' y1='25' x2='200' y2='475' style={{ fill: 'white', strokeWidth: 4 }} />
+      <text x='120' y='455' fontFamily='Verdana' fontSize='30' fill='rgb(250, 204, 21)'>SEASON 01</text>
+      <rect x='0' y='475' width='400' height='200' style={{ fill: '#5b335c' }} />
       <text x='80' y='550' fontFamily='Verdana' fontSize='50' fill='white'>{stringToDisplay}</text>
       <svg x='280' y='490'
         xmlns='http://www.w3.org/2000/svg' height='100' width='100' viewBox='0 0 29 29' renderas='svg'>
