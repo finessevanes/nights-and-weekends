@@ -8,6 +8,7 @@ bg-gradient-200 hover:bg-gradient-100 text-white py-2 px-4 rounded shadow
 `
 function App() {
   const [currentAccount, setCurrentAccount] = useState()
+  const [ isChainIdMumbai, setIsChainIdMumbai ] = useState(false);
 
   useEffect(() => {
     checkIfWalletIsConnected()
@@ -20,6 +21,13 @@ function App() {
       if (!ethereum) {
         console.log("Make sure you have metamask!");
         return;
+      }
+
+      let chainId = await ethereum.request({ method: 'eth_chainId' });
+      const mumbaiChainId = '0x13881'
+
+      if (chainId === mumbaiChainId) {
+        setIsChainIdMumbai(true)
       }
 
       const accounts = await ethereum.request({ method: "eth_accounts" });
@@ -59,7 +67,7 @@ function App() {
       <div className='flex justify-center items-center h-screen'>
         {
           currentAccount ? (
-            <BuyTicket />
+            <BuyTicket isChainIdMumbai={isChainIdMumbai} />
           ) : (
             <button class={ButtonStyle} onClick={connectWallet}>
               Connect Wallet
@@ -72,7 +80,3 @@ function App() {
 }
 
 export default App;
-
-
-// in this new compoenet, we wil be ablke to see the ticket, and mint the ticket 
-// BuyTicket
