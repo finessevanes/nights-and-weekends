@@ -73,7 +73,6 @@ function App() {
               <button className={ButtonStyle} onClick={connectWallet}>
                 Connect Wallet
               </button>
-              <Modal />
             </>
           )
         }
