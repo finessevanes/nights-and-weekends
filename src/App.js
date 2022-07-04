@@ -2,13 +2,14 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import BuyTicket from './components/BuyTicket';
+import Modal from './Modal'
 
 const ButtonStyle = `
 bg-gradient-200 hover:bg-gradient-250 text-white py-2 px-4 rounded shadow
 `
 function App() {
   const [currentAccount, setCurrentAccount] = useState()
-  const [ isChainIdMumbai, setIsChainIdMumbai ] = useState(false);
+  const [isChainIdMumbai, setIsChainIdMumbai] = useState(false);
 
   useEffect(() => {
     checkIfWalletIsConnected()
@@ -68,9 +69,12 @@ function App() {
           currentAccount ? (
             <BuyTicket isChainIdMumbai={isChainIdMumbai} />
           ) : (
-            <button className={ButtonStyle} onClick={connectWallet}>
-              Connect Wallet
-            </button>
+            <>
+              <button className={ButtonStyle} onClick={connectWallet}>
+                Connect Wallet
+              </button>
+              <Modal />
+            </>
           )
         }
       </div>
