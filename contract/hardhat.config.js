@@ -17,5 +17,9 @@ module.exports = {
       url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_KEY}`,
       accounts: [process.env.MUMBAI_KEY],
     },
+    rinkeby: {
+      url: `https://eth-rinkeby.alchemyapi.io/v2/${process.env.ALCHEMY_KEY_RINKEBY}`,
+      accounts: [process.env.MUMBAI_KEY]
+    },
   }
 };

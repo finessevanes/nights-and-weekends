@@ -10,7 +10,7 @@ bg-gradient-200 hover:bg-gradient-250 text-white py-2 px-4 rounded shadow mt-9 w
 const BuyTicket = ({ isChainIdMumbai }) => {
   const [stringToDisplay, setStringToDisplay] = useState('')
 
-  const CONTRACT_ADDRESS = "0x901199E78fA46D40fE37925d8a3DC0823F536947"
+  const CONTRACT_ADDRESS = "0x9eBCAcE0c343e89A4ED13A34ABbc3d4106770643"
   useEffect(() => {
     getCurrentId()
   }, [])
@@ -60,7 +60,7 @@ const BuyTicket = ({ isChainIdMumbai }) => {
         await nftTxn.wait()
 
         console.log(`TRANSACTION: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`)
-        window.location.reload()
+        getCurrentId()
 
       } else {
         return
