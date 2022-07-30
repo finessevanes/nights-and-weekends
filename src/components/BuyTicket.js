@@ -10,7 +10,7 @@ bg-gradient-200 hover:bg-gradient-250 text-white py-2 px-4 rounded shadow mt-9 w
 const BuyTicket = ({ isChainIdMumbai }) => {
   const [stringToDisplay, setStringToDisplay] = useState('')
 
-  const CONTRACT_ADDRESS = "0xd7573740BeFa52E4903B28dB0A7c12d810dc6e4C"
+  const CONTRACT_ADDRESS = "0xEC3DFeE8e911Aa06B55788C9C3eDED67383da817"
   useEffect(() => {
     getCurrentId()
   }, [])
